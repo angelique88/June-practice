@@ -1,0 +1,39 @@
+from selenium import webdriver
+import time
+import pynput
+from pynput import keyboard
+from pynput.keyboard import Key, Controller
+keyboard = Controller()
+
+file = open("intro-short.txt")
+text = file.read()
+
+brosack = webdriver.Chrome()
+
+brosack.get("https://www.messenger.com/")
+
+time.sleep(1)
+
+login_button = brosack.find_element_by_xpath('//*[@id="loginbutton"]')
+login_button.click()
+
+time.sleep(2)
+
+input_address = brosack.find_element_by_xpath('//*[@id="email"]')
+input_address.send_keys('hi.angie.wong@gmail.com')
+
+input_password = brosack.find_element_by_xpath('//*[@id="pass"]')
+input_password.send_keys(" ") #ENTER PASSWORD
+
+login_button_2 = brosack.find_element_by_xpath('//*[@id="loginbutton"]')
+login_button_2.click()
+
+time.sleep(2)
+
+#SENDS TO MOST RECENT CONTACT
+
+for letter in text:
+    keyboard.press(letter)
+    keyboard.release(letter)
+    keyboard.press(Key.enter)
+    keyboard.release(Key.enter)
